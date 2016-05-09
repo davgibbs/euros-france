@@ -1,0 +1,163 @@
+{% extends "venues/base.html" %}
+{% load staticfiles %}
+
+{% block content %}
+<div class="row" id="mycontent-template">
+    <div class="col-md-4" id="hp_jstree"></div>
+    <div class="col-md-8" id="hp_events">
+        <div id="ajax-spinner" style="display:none;">
+            <img src="{% static 'venues/images/ajax-loader.gif' %}" alt="Loading" />
+        </div>
+        <div id="hp_events_table"></div>
+    </div>
+</div>
+
+<script src="{% static 'venues/js/hp_alter.js' %}"></script>
+<script src="{% static 'venues/js/hp_jstree.js' %}"></script>
+<script src="{% static 'venues/js/hp_event_table.js' %}"></script>
+
+<!-- Add Event Modal -->
+<div class="modal fade" id="AddEventModal" tabindex="-1" role="dialog" aria-labelledby="AddEventLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <button type="button" class="close"
+                   data-dismiss="modal">
+                       <span aria-hidden="true">&times;</span>
+                       <span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel">
+                    Add New Event
+                </h4>
+            </div>
+
+            <!-- Modal Body -->
+            <div class="modal-body">
+
+                <form role="form" id="add-event-form">
+                  <div class="form-group">
+                    <label for="InputEventDate">Event Date</label>
+                      <input type="date" class="form-control"
+                      id="InputEventDate" placeholder="Enter Event Date"/>
+                  </div>
+                  <div class="form-group">
+                    <label for="InputEventTitle">Event Title</label>
+                      <input type="text" class="form-control"
+                          id="InputEventTitle" placeholder="Enter Event Title"/>
+                  </div>
+
+                  <button type="submit" class="btn btn-default">Submit</button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div><!-- End Add Event Modal -->
+
+<!-- Delete Event Modal -->
+<div class="modal fade" id="DeleteEventModal" tabindex="-1" role="dialog" aria-labelledby="DeleteEventLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <button type="button" class="close"
+                   data-dismiss="modal">
+                       <span aria-hidden="true">&times;</span>
+                       <span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title" id="DeleteEventLabel">
+                    Delete Event
+                </h4>
+            </div>
+
+            <!-- Modal Body -->
+            <div class="modal-body">
+
+                <form role="form" id="delete-event-form">
+                  <div class="form-group">
+                    <label for="DeleteEventDate">Event Date</label>
+                      <input type="text" class="form-control"
+                      id="DeleteEventDate" readonly/>
+                  </div>
+                  <div class="form-group">
+                    <label for="DeleteEventTitle">Event Title</label>
+                      <input type="text" class="form-control"
+                          id="DeleteEventTitle" readonly/>
+                  </div>
+                  <input type="hidden" class="form-control"
+                          id="DeleteEventID" hidden="true" readonly/>
+
+                  <button type="submit" class="btn btn-default">Delete</button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div><!-- End Delete Event Modal -->
+
+<!-- Edit Event Modal -->
+<div class="modal fade" id="EditEventModal" tabindex="-1" role="dialog" aria-labelledby="EditEventLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <button type="button" class="close"
+                   data-dismiss="modal">
+                       <span aria-hidden="true">&times;</span>
+                       <span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title" id="EditEventLabel">
+                    Edit Event
+                </h4>
+            </div>
+
+            <!-- Modal Body -->
+            <div class="modal-body">
+
+                <form role="form" id="edit-event-form">
+                  <div class="form-group">
+                    <label for="EditEventDate">Event Date</label>
+                      <input type="date" class="form-control"
+                      id="EditEventDate" />
+                  </div>
+                  <div class="form-group">
+                    <label for="EditEventTitle">Event Title</label>
+                      <input type="text" class="form-control"
+                          id="EditEventTitle" />
+                  </div>
+                  <input type="hidden" class="form-control"
+                          id="EditEventID" hidden="true" readonly/>
+
+                  <button type="submit" class="btn btn-default">Update</button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div><!-- End Edit Event Modal -->
+
+<!-- resultModal container-->
+<div class="modal fade" id="resultModal" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 id="response_type">Response</h4>
+            </div>
+            <div class="modal-body">
+                <p id="modal-message"></p>
+            </div>
+            <div class="modal-footer">
+                <button id="wmh-button-type" class="btn pull-right" data-dismiss="modal"> OK</button>
+            </div>
+        </div>
+
+    </div>
+</div> <!-- End resultModal container-->
+
+
+<script src="{% static 'venues/js/ho_alter_submit.js' %}"></script>
+
+{% endblock content %}

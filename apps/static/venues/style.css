@@ -1,0 +1,29 @@
+body {
+  padding-top: 50px;
+}
+.mycontent-template {
+  padding: 40px 15px;
+  text-align: center;
+}
+.navbar-header {
+    float: left;
+    padding: 15px;
+    width: 100%;
+}
+.navbar-brand {
+    float:none;
+}
+h3 {
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+#ajax-spinner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    text-align: center;
+    z-index: 1234;
+    width: 30px; /* width of the spinner gif */
+    height: 32px; /* height of the spinner gif +2px to fix IE8 issue */
+}

@@ -1,0 +1,47 @@
+{% load staticfiles %}
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Euro 2016 France Matches</title>
+  <meta name="description" content="Euro 2016 France Matches">
+  <meta name="author" content="David Gibbons">
+
+  <!-- Jstree -->
+  <link rel="stylesheet" type="text/css" href="{% static 'venues/js/jstree/themes/default/style.min.css' %}" />
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" type="text/css" href="{% static 'venues/bootstrap/bootstrap-3.3.6-dist/css/bootstrap.min.css' %}">
+  <!-- My CSS -->
+  <link rel="stylesheet" type="text/css" href="{% static 'venues/style.css' %}" />
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+</head>
+
+<body>
+
+  <script src="{% static 'venues/js/jquery-1.12.3.min.js' %}"></script>
+  <script src="{% static 'venues/js/jstree/jstree.min.js' %}"></script>
+  <script src="{% static 'venues/bootstrap/bootstrap-3.3.6-dist/js/bootstrap.min.js' %}"></script>
+  <script src="{% static 'venues/js/history.js/scripts/bundled/html4+html5/jquery.history.js' %}"></script>
+
+  <nav class="navbar navbar-default" role="navigation">
+    <div class="container">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="#">Euro 2016 France Matches</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    {% block content %}
+    {% endblock content %}
+  </div>
+
+</body>
+
+</html>

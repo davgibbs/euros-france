@@ -4,30 +4,46 @@ from django.db import models
 
 
 class Venue(models.Model):
-    venue_name = models.CharField(max_length=100, unique=True)
+    """ Venue in Euro 2016 """
+    name = models.CharField(max_length=100, unique=True)
 
     def __unicode__(self):
-        return self.venue_name
+        return self.name
 
     class Meta:
         verbose_name = 'Venue'
         verbose_name_plural = 'Venues'
 
 
+class Team(models.Model):
+    """ Team in Euro 2016 """
+    name = models.CharField(max_length=100, unique=True)
+
+    def __unicode__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = 'Team'
+        verbose_name_plural = 'Teams'
+
+
 class Match(models.Model):
-    date = models.DateField('date of event')
-    time = models.TimeField('time of event')
-    teamone = models.CharField(max_length=100, verbose_name='Team One')
-    teamtwo = models.CharField(max_length=100, verbose_name='Team Two')
+    """ Match in Euro 2016 """
+    date = models.DateField('Date of Match')
+    time = models.TimeField('Time of Match')
     venue = models.ForeignKey(Venue, verbose_name='Venue')
-    teamonegoals = models.IntegerField()
-    teamtwogoals = models.IntegerField()
+    # Add in related name as two foreign keys to the same table
+    teamone = models.ForeignKey(Team, verbose_name='Team One', related_name='match_teamone')
+    teamtwo = models.ForeignKey(Team, verbose_name='Team Two', related_name='match_teamtwo')
+    # Allow blank for scores that are in the future
+    teamonescore = models.PositiveSmallIntegerField(blank=True, null=True, verbose_name='Team One Goals')
+    teamtwoscore = models.PositiveSmallIntegerField(blank=True, null=True, verbose_name='Team Two Goals')
 
     def __unicode__(self):
         return '{date}-{venue}'.format(date=self.date, venue=self.venue)
 
     class Meta:
-        verbose_name = 'match'
-        verbose_name_plural = 'matches'
+        verbose_name = 'Match'
+        verbose_name_plural = 'Matches'
         unique_together = [['date', 'venue']]
 
