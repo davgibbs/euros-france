@@ -31,5 +31,5 @@ urlpatterns = [
     url(r'^venues/', include('venues.urls'), name='homepage'),
     url(r'^admin/', admin.site.urls),
     url(r'^api/', include(router.urls)),
-    #url(r'^api-characters/', include('rest_framework.urls', namespace='rest_framework')),
+    # url(r'^api-characters/', include('rest_framework.urls', namespace='rest_framework')),
 ]
