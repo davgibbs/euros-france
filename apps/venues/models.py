@@ -46,4 +46,3 @@ class Match(models.Model):
         verbose_name = 'Match'
         verbose_name_plural = 'Matches'
         unique_together = [['date', 'venue']]
-
