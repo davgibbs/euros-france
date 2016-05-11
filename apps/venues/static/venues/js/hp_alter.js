@@ -2,7 +2,6 @@
 
 // A generic method to process and show the result
 function process_and_show_result(message){
-    //$('.spinner').hide();
     $("#response_type").text("Success");
     $("#wmh-button-type").addClass( "btn-success" );
     $("#modal-message").html(message);
@@ -15,7 +14,21 @@ function listen_for_change_clicks() {
     $(document).ready(function(){
         // Handle Add Event button press
         $("#event-add").click( function() {
-            $("#AddMatchModal").modal('show');
+            var teams_get = $.ajax({
+                 url: "../api/teams/",
+                 type: "GET",
+            });
+
+            teams_get.done(function( data ) {
+                $("#AddMatchModal").modal('show');
+
+                $("#InputMatchTeamOne").empty();
+                $("#InputMatchTeamTwo").empty();
+                for (var i = 0; i < data.results.length; i++){
+                    $("#InputMatchTeamOne").append('<option value="'+ data.results[i].id +'">' + data.results[i].name + '</option>');
+                    $("#InputMatchTeamTwo").append('<option value="'+ data.results[i].id +'">' + data.results[i].name + '</option>');
+                }
+            });
         });
 
         // Handle Delete Event button press

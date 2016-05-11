@@ -32,32 +32,40 @@ function getCookie(name) {
 
 var csrftoken = getCookie('csrftoken');
 
-// Handle Add Event form submission
-var add_form = $('#add-event-form');
+// Handle Add Match form submission
+var add_form = $('#add-match-form');
 // Unbind any previous bindings for add
 $(add_form).unbind( "submit" );
 $(add_form).submit(function(event) {
     event.preventDefault();
-    $("#AddEventModal").modal('hide');
+    $("#AddMatchModal").modal('hide');
 
-    var event_date = $("input[id='InputEventDate']").val();
-    var event_title = $("input[id='InputEventTitle']").val();
+    var date = $("input[id='InputMatchDate']").val();
+    var time = $("input[id='InputMatchTime']").val();
+    var team_one = $("select[id='InputMatchTeamOne']").val();
+    var team_two = $("select[id='InputMatchTeamTwo']").val();
+    var team_one_name = $("#InputMatchTeamOne option:selected").text();
+    var team_two_name = $("#InputMatchTeamTwo option:selected").text();
+    var team_one_score = $("input[id='InputMatchTeamOneScore']").val();
+    var team_two_score = $("input[id='InputMatchTeamTwoScore']").val();
 
     var add_event_post = $.ajax({
-      url: "../api/events/",
+      url: "../api/matches/",
       type: "POST",
       dataType: "json",
-      data: { "date": event_date,
-              "title": event_title,
-             "short_description": "description",
-             "hp_character": "http://127.0.0.1:8000/api/characters/" + selected_character.character_id + "/",
+      data: { "date": date,
+              "time": time,
+              "venue": "" + selected_venue.venue_id + "",
+              "teamone": team_one,
+              "teamtwo": team_two,
+              "teamonescore": team_one_score,
+              "teamtwoscore": team_two_score,
              }
         });
 
-    //$('.spinner').show();
     add_event_post.done(function( data ) {
-        process_and_show_result('Successfully added event: "' + event_title + '" on "' + event_date + '"');
-        populate_event_table(selected_character.character_id);
+        process_and_show_result('Successfully added match between: "' + team_one_name + '" and "' + team_two_name + '" on "' + date + '"');
+        populate_event_table(selected_venue.venue_id);
     });
 });
 
@@ -68,7 +76,7 @@ var delete_form = $('#delete-event-form');
 $(delete_form).unbind( "submit" );
 $(delete_form).submit(function(event) {
     event.preventDefault();
-    $("#DeleteEventModal").modal('hide');
+    $("#DeleteMatchModal").modal('hide');
 
     var event_id = $("input[id='DeleteEventID']").val();
 
@@ -92,7 +100,7 @@ var edit_form = $('#edit-event-form');
 $(edit_form).unbind( "submit" );
 $(edit_form).submit(function(event) {
     event.preventDefault();
-    $("#EditEventModal").modal('hide');
+    $("#EditMatchModal").modal('hide');
 
     var event_id = $("input[id='EditEventID']").val();
     var event_date = $("input[id='EditEventDate']").val();
