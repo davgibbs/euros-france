@@ -66,10 +66,10 @@
             </div>
         </div>
     </div>
-</div><!-- End Add Event Modal -->
+</div><!-- End Add Match Modal -->
 
-<!-- Delete Event Modal -->
-<div class="modal fade" id="DeleteEventModal" tabindex="-1" role="dialog" aria-labelledby="DeleteEventLabel" aria-hidden="true">
+<!-- Delete Match Modal -->
+<div class="modal fade" id="DeleteMatchModal" tabindex="-1" role="dialog" aria-labelledby="DeleteMatchLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <!-- Modal Header -->
@@ -78,25 +78,41 @@
                        <span aria-hidden="true">&times;</span>
                        <span class="sr-only">Close</span>
                 </button>
-                <h4 class="modal-title" id="DeleteEventLabel">
-                    Delete Event
+                <h4 class="modal-title" id="DeleteMatchLabel">
+                    Delete Match
                 </h4>
             </div>
 
             <!-- Modal Body -->
             <div class="modal-body">
+                <form role="form" id="delete-match-form">
 
-                <form role="form" id="delete-event-form">
                   <div class="form-group">
-                    <label for="DeleteEventDate">Event Date</label>
-                      <input type="text" class="form-control"
-                      id="DeleteEventDate" readonly/>
+                    <label for="DeleteMatchDate">Match Date</label>
+                    <input type="text" class="form-control" id="DeleteMatchDate" readonly/>
                   </div>
                   <div class="form-group">
-                    <label for="DeleteEventTitle">Event Title</label>
-                      <input type="text" class="form-control" id="DeleteEventTitle" readonly/>
+                    <label for="DeleteMatchTime">Match Time</label>
+                    <input type="text" class="form-control" id="DeleteMatchTime" readonly/>
                   </div>
-                  <input type="hidden" class="form-control" id="DeleteEventID" hidden="true" readonly/>
+                  <div class="form-group">
+                    <label for="DeleteMatchTeamOne">Team One</label>
+                    <input type="text" class="form-control" id="DeleteMatchTeamOne" readonly>
+                  </div>
+                  <div class="form-group">
+                    <label for="DeleteMatchTeamTwo">Team Two</label>
+                    <input type="text" class="form-control" id="DeleteMatchTeamTwo" readonly>
+                  </div>
+                  <div class="form-group">
+                    <label for="DeleteMatchTeamOneScore">Team One Score</label>
+                    <input type="text" class="form-control" id="DeleteMatchTeamOneScore" readonly/>
+                  </div>
+                  <div class="form-group">
+                    <label for="DeleteMatchTeamTwoScore">Team Two Score</label>
+                    <input type="text" class="form-control" id="DeleteMatchTeamTwoScore" readonly/>
+                  </div>
+
+                  <input type="hidden" class="form-control" id="DeleteMatchID" hidden="true" readonly/>
 
                   <button type="submit" class="btn btn-default">Delete</button>
                 </form>
@@ -104,10 +120,10 @@
             </div>
         </div>
     </div>
-</div><!-- End Delete Event Modal -->
+</div><!-- End Delete Match Modal -->
 
-<!-- Edit Event Modal -->
-<div class="modal fade" id="EditEventModal" tabindex="-1" role="dialog" aria-labelledby="EditEventLabel" aria-hidden="true">
+<!-- Edit Match Modal -->
+<div class="modal fade" id="EditMatchModal" tabindex="-1" role="dialog" aria-labelledby="EditMatchLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <!-- Modal Header -->
@@ -117,27 +133,41 @@
                        <span aria-hidden="true">&times;</span>
                        <span class="sr-only">Close</span>
                 </button>
-                <h4 class="modal-title" id="EditEventLabel">
-                    Edit Event
+                <h4 class="modal-title" id="EditMatchLabel">
+                    Edit Match
                 </h4>
             </div>
 
             <!-- Modal Body -->
             <div class="modal-body">
 
-                <form role="form" id="edit-event-form">
+                <form role="form" id="edit-match-form">
+
                   <div class="form-group">
-                    <label for="EditEventDate">Event Date</label>
-                      <input type="date" class="form-control"
-                      id="EditEventDate" />
+                    <label for="EditMatchDate">Match Date</label>
+                    <input type="date" class="form-control" id="EditMatchDate" placeholder="Enter Match Date"/>
                   </div>
                   <div class="form-group">
-                    <label for="EditEventTitle">Event Title</label>
-                      <input type="text" class="form-control"
-                          id="EditEventTitle" />
+                    <label for="EditMatchTime">Match Time</label>
+                    <input type="time" class="form-control" id="EditMatchTime" placeholder="Enter Match Time"/>
                   </div>
-                  <input type="hidden" class="form-control"
-                          id="EditEventID" hidden="true" readonly/>
+                  <div class="form-group">
+                    <label for="EditMatchTeamOne">Team One</label>
+                    <select class="form-control" id="EditMatchTeamOne" placeholder="Enter Team One"> <select/>
+                  </div>
+                  <div class="form-group">
+                    <label for="EditMatchTeamTwo">Team Two</label>
+                    <select class="form-control" id="EditMatchTeamTwo" placeholder="Enter Team Two"> <select/>
+                  </div>
+                  <div class="form-group">
+                    <label for="EditMatchTeamOneScore">Team One Score</label>
+                    <input type="number" class="form-control" id="EditMatchTeamOneScore" placeholder="Enter Team One Score (if match finished)"/>
+                  </div>
+                  <div class="form-group">
+                    <label for="EditMatchTeamTwoScore">Team Two Score</label>
+                    <input type="number" class="form-control" id="EditMatchTeamTwoScore" placeholder="Enter Team Two Score (if match finished)"/>
+                  </div>
+                  <input type="hidden" class="form-control" id="EditMatchID" hidden="true" readonly/>
 
                   <button type="submit" class="btn btn-default">Update</button>
                 </form>

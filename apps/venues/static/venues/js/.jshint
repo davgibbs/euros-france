@@ -1,0 +1,14 @@
+{
+    "strict"        : true,  // Require `use strict` pragma  in every file.
+    "globalstrict"  : true,  // Allow global "use strict" (also enables 'strict').
+    // Custom Globals
+    "globals": {
+        "$": false,
+        "jQuery": false,
+        "document": false,
+        "window": false,
+        "location": false,
+        "url": false,
+        "moment": false
+    }
+}

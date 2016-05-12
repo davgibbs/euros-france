@@ -1,4 +1,4 @@
-/* globals listen_for_jstree_clicks: true */
+/* globals listen_for_jstree_clicks: true, selected_venue: true, listen_for_change_clicks: true */
 "use strict";
 
 function format_date(in_date){
@@ -8,8 +8,8 @@ function format_date(in_date){
         day : 'numeric',
         month : 'short',
         year : 'numeric'
-    })
-    return out_date
+    });
+    return out_date;
 }
 
 
@@ -43,15 +43,15 @@ function populate_event_table(venue_id){
             $row.append('<td>' + data.results[event].date + '</td><td>' + data.results[event].time + '</td>' );
             $row.append('<td>' + data.results[event].teamone_obj.name + '</td><td>' + format_score(data.results[event].teamonescore) + '</td>' );
             $row.append('<td>' + format_score(data.results[event].teamtwoscore) + '</td><td>' + data.results[event].teamtwo_obj.name + '</td>' );
-            $row.append('<td align="center" class="event-delete" name="' + data.results[event].id + '"><a><span title="Delete" class="glyphicon glyphicon-remove"></span></a></td>');
-            $row.append('<td align="center" class="event-edit" name="' + data.results[event].id + '"><a><span title="Edit" class="glyphicon glyphicon-edit"></span></a></td>');
-            $table.append($row)
+            $row.append('<td align="center" class="match-delete" name="' + data.results[event].id + '"><a><span title="Delete" class="glyphicon glyphicon-remove"></span></a></td>');
+            $row.append('<td align="center" class="match-edit" name="' + data.results[event].id + '"><a><span title="Edit" class="glyphicon glyphicon-edit"></span></a></td>');
+            $table.append($row);
         }
         $('#hp_events_table').append($add_button);
         $('#hp_events_table').append('<br><br>');
         $('#hp_events_table').append($table);
 
-        listen_for_change_clicks()
+        listen_for_change_clicks();
 
         // Update the URL
         History.pushState(null, null, '?venue_id='+ venue_id);
