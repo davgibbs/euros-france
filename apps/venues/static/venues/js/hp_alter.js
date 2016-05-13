@@ -1,11 +1,17 @@
 "use strict";
 
 // A generic method to process and show the result
-function process_and_show_result(message){
-    $("#response_type").text("Success");
-    $("#wmh-button-type").addClass( "btn-success" );
-    $("#modal-message").html(message);
+function process_and_show_result(message, success){
+    if (success === false){
+        $("#response_type").text("Error");
+        $("#wmh-button-type").addClass( "btn-danger" );
+    }
+    else{
+        $("#response_type").text("Success");
+        $("#wmh-button-type").addClass( "btn-success" );
+    }
 
+    $("#modal-message").html(message);
     $("#resultModal").modal('show');
 }
 
@@ -55,6 +61,7 @@ function listen_for_change_clicks() {
         // Handle Edit Event button press
         $(".match-edit").click( function() {
             $("#EditMatchModal").modal('show');
+            var match_id = $(this).attr('name');
 
             var teams_get = $.ajax({
                  url: "../api/teams/",
@@ -67,24 +74,24 @@ function listen_for_change_clicks() {
                     $("#EditMatchTeamOne").append('<option value="'+ data.results[i].id +'">' + data.results[i].name + '</option>');
                     $("#EditMatchTeamTwo").append('<option value="'+ data.results[i].id +'">' + data.results[i].name + '</option>');
                 }
-            });
 
-            var match_id = $(this).attr('name');
-            $("#EditMatchID").val(match_id);
-            var match_get = $.ajax({
-                 url: "../api/matches/" + match_id + "/",
-                 type: "GET",
-            });
+                // Now Do an ajax request for the particular match
+                $("#EditMatchID").val(match_id);
+                var match_get = $.ajax({
+                     url: "../api/matches/" + match_id + "/",
+                     type: "GET",
+                });
 
-            match_get.done(function(data) {
-                $("#EditMatchDate").val(data.date);
-                $("#EditMatchTime").val(data.time);
+                match_get.done(function(data) {
+                    $("#EditMatchDate").val(data.date);
+                    $("#EditMatchTime").val(data.time);
 
-                $("#EditMatchTeamOneScore").val(data.teamonescore);
-                $("#EditMatchTeamTwoScore").val(data.teamtwoscore);
+                    $("#EditMatchTeamOneScore").val(data.teamonescore);
+                    $("#EditMatchTeamTwoScore").val(data.teamtwoscore);
 
-                $("#EditMatchTeamOne option[value='" + data.teamone_obj.id + "']").prop('selected', true);
-                $("#EditMatchTeamTwo option[value='" + data.teamtwo_obj.id + "']").prop('selected', true);
+                    $("#EditMatchTeamOne option[value='" + data.teamone_obj.id + "']").prop('selected', true);
+                    $("#EditMatchTeamTwo option[value='" + data.teamtwo_obj.id + "']").prop('selected', true);
+                });
             });
         });
     });

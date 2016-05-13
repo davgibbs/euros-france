@@ -1,3 +1,4 @@
+/* globals listen_for_jstree_clicks: true, selected_venue: true, listen_for_change_clicks: true */
 "use strict";
 
 function csrfSafeMethod(method) {
@@ -16,7 +17,7 @@ $.ajaxSetup({
 // using jQuery
 function getCookie(name) {
     var cookieValue = null;
-    if (document.cookie && document.cookie != '') {
+    if (document.cookie && document.cookie !== '') {
         var cookies = document.cookie.split(';');
         for (var i = 0; i < cookies.length; i++) {
             var cookie = jQuery.trim(cookies[i]);
@@ -32,87 +33,115 @@ function getCookie(name) {
 
 var csrftoken = getCookie('csrftoken');
 
-// Handle Add Event form submission
-var add_form = $('#add-event-form');
+// Handle Add Match form submission
+var add_form = $('#add-match-form');
 // Unbind any previous bindings for add
 $(add_form).unbind( "submit" );
 $(add_form).submit(function(event) {
     event.preventDefault();
-    $("#AddEventModal").modal('hide');
+    $("#AddMatchModal").modal('hide');
 
-    var event_date = $("input[id='InputEventDate']").val();
-    var event_title = $("input[id='InputEventTitle']").val();
+    var date = $("input[id='InputMatchDate']").val();
+    var time = $("input[id='InputMatchTime']").val();
+    var team_one = $("select[id='InputMatchTeamOne']").val();
+    var team_two = $("select[id='InputMatchTeamTwo']").val();
+    var team_one_name = $("#InputMatchTeamOne option:selected").text();
+    var team_two_name = $("#InputMatchTeamTwo option:selected").text();
+    var team_one_score = $("input[id='InputMatchTeamOneScore']").val();
+    var team_two_score = $("input[id='InputMatchTeamTwoScore']").val();
 
     var add_event_post = $.ajax({
-      url: "../api/events/",
+      url: "../api/matches/",
       type: "POST",
       dataType: "json",
-      data: { "date": event_date,
-             "title": event_title,
-             "short_description": "description",
-             "hp_character": "http://127.0.0.1:8000/api/characters/" + selected_character.character_id + "/",
+      data: { "date": date,
+              "time": time,
+              "venue": "" + selected_venue.venue_id + "",
+              "teamone": team_one,
+              "teamtwo": team_two,
+              "teamonescore": team_one_score,
+              "teamtwoscore": team_two_score,
              }
         });
 
-    //$('.spinner').show();
     add_event_post.done(function( data ) {
-        process_and_show_result('Successfully added event: "' + event_title + '" on "' + event_date + '"');
-        populate_event_table(selected_character.character_id);
+        process_and_show_result('Successfully added match between: "' + team_one_name + '" and "' + team_two_name + '" on "' + date + '"', true);
+        populate_event_table(selected_venue.venue_id);
+    });
+
+    add_event_post.error(function( data ) {
+        process_and_show_result('Error adding match between: "' + team_one_name + '" and "' + team_two_name + '" on "' + date + '": '+ data.responseText, false);
+        populate_event_table(selected_venue.venue_id);
     });
 });
 
 
-// Handle Delete Event form submission
-var delete_form = $('#delete-event-form');
+// Handle Delete Match form submission
+var delete_form = $('#delete-match-form');
 // Unbind any previous bindings for add
 $(delete_form).unbind( "submit" );
 $(delete_form).submit(function(event) {
     event.preventDefault();
-    $("#DeleteEventModal").modal('hide');
+    $("#DeleteMatchModal").modal('hide');
 
-    var event_id = $("input[id='DeleteEventID']").val();
-
-    var delete_event_delete = $.ajax({
-      url: "../api/events/" + event_id + "/",
+    var match_id = $("input[id='DeleteMatchID']").val();
+    var delete_match_delete = $.ajax({
+      url: "../api/matches/" + match_id + "/",
       type: "DELETE",
       dataType: "json",
     });
 
     //$('.spinner').show();
-    delete_event_delete.done(function( data ) {
-        process_and_show_result('Successfully deleted event id: "' + event_id + '"');
-        populate_event_table(selected_character.character_id);
+    delete_match_delete.done(function( data ) {
+        process_and_show_result('Successfully deleted match id: "' + match_id + '"', true);
+        populate_event_table(selected_venue.venue_id);
+    });
+
+    delete_event_delete.error(function( data ) {
+        process_and_show_result('Error deleting match id: "' + match_id + '"": '+ data.responseText, false);
+        populate_event_table(selected_venue.venue_id);
     });
 });
 
 
-// Handle Edit Event form submission
-var edit_form = $('#edit-event-form');
+// Handle Edit Match form submission
+var edit_form = $('#edit-match-form');
 // Unbind any previous bindings for add
 $(edit_form).unbind( "submit" );
 $(edit_form).submit(function(event) {
     event.preventDefault();
-    $("#EditEventModal").modal('hide');
+    $("#EditMatchModal").modal('hide');
 
-    var event_id = $("input[id='EditEventID']").val();
-    var event_date = $("input[id='EditEventDate']").val();
-    var event_title = $("input[id='EditEventTitle']").val();
+    var match_id = $("input[id='EditMatchID']").val();
+    var date = $("input[id='EditMatchDate']").val();
+    var time = $("input[id='EditMatchTime']").val();
+    var team_one = $("select[id='EditMatchTeamOne']").val();
+    var team_two = $("select[id='EditMatchTeamTwo']").val();
+    var team_one_score = $("input[id='EditMatchTeamOneScore']").val();
+    var team_two_score = $("input[id='EditMatchTeamTwoScore']").val();
 
     var edit_event_put = $.ajax({
-      url: "../api/events/" + event_id + "/",
+      url: "../api/matches/" + match_id + "/",
       type: "PUT",
       dataType: "json",
-      data: {"id": event_id,
-             "date": event_date,
-             "title": event_title,
-             "short_description": "description",
-             "hp_character": "http://127.0.0.1:8000/api/characters/" + selected_character.character_id + "/",
+      data: { "date": date,
+              "time": time,
+              "venue": "" + selected_venue.venue_id + "",
+              "teamone": team_one,
+              "teamtwo": team_two,
+              "teamonescore": team_one_score,
+              "teamtwoscore": team_two_score,
              }
       });
 
     //$('.spinner').show();
     edit_event_put.done(function( data ) {
-        process_and_show_result('Successfully updated event id: "' + event_id + '"');
-        populate_event_table(selected_character.character_id);
+        process_and_show_result('Successfully updated match id: "' + match_id + '"', true);
+        populate_event_table(selected_venue.venue_id);
+    });
+
+    edit_event_put.error(function( data ) {
+        process_and_show_result('Error updating match id: "' + match_id + '": '+ data.responseText, false);
+        populate_event_table(selected_venue.venue_id);
     });
 });

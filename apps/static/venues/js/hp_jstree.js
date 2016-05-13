@@ -1,3 +1,4 @@
+/* globals listen_for_jstree_clicks: true */
 "use strict";
 
 function get_json_jstree_formatted(results){
@@ -6,7 +7,7 @@ function get_json_jstree_formatted(results){
     var i = 0;
     for (i; i < results.length; i++){
         json_jstree_formatted.push({
-            text: results[i].full_name,
+            text: results[i].name,
             id: results[i].id
         });
     }
@@ -15,21 +16,21 @@ function get_json_jstree_formatted(results){
 }
 
 
-var selected_character = {
-    character_id: null,
+var selected_venue = {
+    venue_id: null,
 };
 
 
 $( document ).ready(function() {
     var graph_get = $.ajax({
-         url: "../api/characters/",
+         url: "../api/venues/",
          type: "GET",
     });
 
     graph_get.done(function( data ) {
         var json_jstree_formatted = get_json_jstree_formatted(data.results);
 
-        var $jstree_header = $('<div><h3>Characters</h3></div>');
+        var $jstree_header = $('<div><h3>Venues</h3></div>');
 
         var $jstree_div = $('<div id="jstree_div"></div>');
         $jstree_div.jstree({
@@ -50,5 +51,15 @@ $( document ).ready(function() {
 
         listen_for_jstree_clicks();
     });
+
+    // If there is a venue given, populate the table
+    var venue_id = url('?venue_id')
+    if (venue_id !== undefined){
+        selected_venue.venue_id = venue_id;
+        populate_event_table(selected_venue.venue_id);
+        // Make the tree node as selected
+        //$('#jstree_div ul li["id=' + venue_id + '"] div').addClass('jstree-wholerow-clicked');
+        //console.log($('#jstree_div ul'));//.find('#' + venue_id));
+    }
 });
 

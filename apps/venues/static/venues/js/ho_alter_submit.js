@@ -65,7 +65,12 @@ $(add_form).submit(function(event) {
         });
 
     add_event_post.done(function( data ) {
-        process_and_show_result('Successfully added match between: "' + team_one_name + '" and "' + team_two_name + '" on "' + date + '"');
+        process_and_show_result('Successfully added match between: "' + team_one_name + '" and "' + team_two_name + '" on "' + date + '"', true);
+        populate_event_table(selected_venue.venue_id);
+    });
+
+    add_event_post.error(function( data ) {
+        process_and_show_result('Error adding match between: "' + team_one_name + '" and "' + team_two_name + '" on "' + date + '": '+ data.responseText, false);
         populate_event_table(selected_venue.venue_id);
     });
 });
@@ -88,7 +93,12 @@ $(delete_form).submit(function(event) {
 
     //$('.spinner').show();
     delete_match_delete.done(function( data ) {
-        process_and_show_result('Successfully deleted match id: "' + match_id + '"');
+        process_and_show_result('Successfully deleted match id: "' + match_id + '"', true);
+        populate_event_table(selected_venue.venue_id);
+    });
+
+    delete_event_delete.error(function( data ) {
+        process_and_show_result('Error deleting match id: "' + match_id + '"": '+ data.responseText, false);
         populate_event_table(selected_venue.venue_id);
     });
 });
@@ -126,7 +136,12 @@ $(edit_form).submit(function(event) {
 
     //$('.spinner').show();
     edit_event_put.done(function( data ) {
-        process_and_show_result('Successfully updated match id: "' + match_id + '"');
+        process_and_show_result('Successfully updated match id: "' + match_id + '"', true);
+        populate_event_table(selected_venue.venue_id);
+    });
+
+    edit_event_put.error(function( data ) {
+        process_and_show_result('Error updating match id: "' + match_id + '": '+ data.responseText, false);
         populate_event_table(selected_venue.venue_id);
     });
 });

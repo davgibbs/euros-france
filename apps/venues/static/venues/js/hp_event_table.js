@@ -37,10 +37,10 @@ function populate_event_table(venue_id){
         var $add_button = $('<button type="button" class="btn btn-large btn-info" id="event-add"><i class="glyphicon glyphicon-plus"></i> &nbsp; Add New Match</button>');
 
         var $table = $('<table class="table table-bordered" />');
-        $table.append('<tr><th>Date</th><th>Time</th><th>Team One</th><th>&nbsp;</th><th>&nbsp;</th><th>Team Two</th><th colspan="2" style="text-align: center">Actions</th></tr>' );
+        $table.append('<tr><th>Date</th><th>Team One</th><th>&nbsp;</th><th>&nbsp;</th><th>Team Two</th><th colspan="2" style="text-align: center">Actions</th></tr>' );
         for (var event = 0; event < data.results.length; event++) {
             var $row = $('<tr />');
-            $row.append('<td>' + data.results[event].date + '</td><td>' + data.results[event].time + '</td>' );
+            $row.append('<td>' + format_date(data.results[event].date) + ' ' + data.results[event].time + '</td>' );
             $row.append('<td>' + data.results[event].teamone_obj.name + '</td><td>' + format_score(data.results[event].teamonescore) + '</td>' );
             $row.append('<td>' + format_score(data.results[event].teamtwoscore) + '</td><td>' + data.results[event].teamtwo_obj.name + '</td>' );
             $row.append('<td align="center" class="match-delete" name="' + data.results[event].id + '"><a><span title="Delete" class="glyphicon glyphicon-remove"></span></a></td>');

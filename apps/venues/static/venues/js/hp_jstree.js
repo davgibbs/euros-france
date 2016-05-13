@@ -51,5 +51,15 @@ $( document ).ready(function() {
 
         listen_for_jstree_clicks();
     });
+
+    // If there is a venue given, populate the table
+    var venue_id = url('?venue_id')
+    if (venue_id !== undefined){
+        selected_venue.venue_id = venue_id;
+        populate_event_table(selected_venue.venue_id);
+        // Make the tree node as selected
+        //$('#jstree_div ul li["id=' + venue_id + '"] div').addClass('jstree-wholerow-clicked');
+        //console.log($('#jstree_div ul'));//.find('#' + venue_id));
+    }
 });
 
