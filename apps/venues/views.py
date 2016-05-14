@@ -40,4 +40,4 @@ class MatchViewSet(viewsets.ModelViewSet):
         if venue_id is not None:
             queryset = queryset.filter(venue__id=venue_id)
 
-        return queryset
+        return queryset.order_by('date')
