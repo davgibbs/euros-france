@@ -19,7 +19,7 @@ function process_and_show_result(message, success){
 function listen_for_change_clicks() {
     $(document).ready(function(){
         // Handle Add Event button press
-        $("#event-add").click( function() {
+        $("#match-add").click( function() {
             var teams_get = $.ajax({
                  url: "../api/teams/",
                  type: "GET",

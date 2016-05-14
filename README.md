@@ -7,6 +7,9 @@ Technologies such as Django, Django REST framework, jQuery and Twitter Bootstrap
 Venues based on Information given in:
 https://en.wikipedia.org/wiki/UEFA_Euro_2016
 
+![Euros France 2016](./apps/venues/static/venues/images/eurosfrance-screenshot.png?raw=true "Euros France 2016")
+
+
 ## Developer Information
 Need a virtualenv set up with requirement.txt dependencies installed
 Then as with all Django projects, run the "migrate" command to create the database.
