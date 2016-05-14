@@ -1,4 +1,8 @@
-language: python
+language: node_js
+node_js:
+  - "0.10.25"
+before_install:
+  - npm install -g jshint
 python:
   - "2.7"
 # command to install dependencies

@@ -22,7 +22,7 @@ var selected_venue = {
 
 
 $( document ).ready(function() {
-    var venue_id = url('?venue_id')
+    var venue_id = url('?venue_id');
     var graph_get = $.ajax({
          url: "../api/venues/",
          type: "GET",
