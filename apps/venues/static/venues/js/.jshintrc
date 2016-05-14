@@ -9,6 +9,7 @@
         "window": false,
         "location": false,
         "url": false,
-        "moment": false
+        "moment": false,
+        "History": false
     }
 }

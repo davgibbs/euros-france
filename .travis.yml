@@ -8,4 +8,6 @@ python:
 # command to install dependencies
 install: "pip install -r requirements.txt"
 # command to run tests
-script: flake8 apps/
+script:
+  - flake8 apps/
+  - jshint apps/venues/static/venues/js/hp_alter.js apps/venues/static/venues/js/hp_jstree.js apps/venues/static/venues/js/hp_event_table.js apps/venues/static/venues/js/ho_alter_submit.js
