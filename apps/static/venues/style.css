@@ -27,3 +27,13 @@ h3 {
     width: 30px; /* width of the spinner gif */
     height: 32px; /* height of the spinner gif +2px to fix IE8 issue */
 }
+
+.container {
+    background-color: #f8f8f8;;
+    border-radius: 4px;"
+}
+
+#match-add-div {
+    padding-top: 10px;
+    padding-bottom: 15px;
+}

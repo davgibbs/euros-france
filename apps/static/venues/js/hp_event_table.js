@@ -34,7 +34,7 @@ function populate_event_table(venue_id){
         $('#ajax-spinner').hide();
         $('#hp_events_table').empty();
 
-        var $add_button = $('<button type="button" class="btn btn-large btn-info" id="event-add"><i class="glyphicon glyphicon-plus"></i> &nbsp; Add New Match</button>');
+        var $add_button = $('<div id="match-add-div"><button type="button" class="btn btn-large btn-info" id="match-add"><i class="glyphicon glyphicon-plus"></i> &nbsp; Add New Match</button></div>');
 
         var $table = $('<table class="table table-bordered" />');
         $table.append('<tr><th>Date</th><th>Team One</th><th>&nbsp;</th><th>&nbsp;</th><th>Team Two</th><th colspan="2" style="text-align: center">Actions</th></tr>' );
@@ -48,7 +48,6 @@ function populate_event_table(venue_id){
             $table.append($row);
         }
         $('#hp_events_table').append($add_button);
-        $('#hp_events_table').append('<br><br>');
         $('#hp_events_table').append($table);
 
         listen_for_change_clicks();
