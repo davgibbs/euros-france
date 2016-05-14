@@ -1,4 +1,4 @@
-/* globals listen_for_jstree_clicks: true, selected_venue: true, listen_for_change_clicks: true */
+/* globals selected_venue: true, populate_event_table: true , process_and_show_result: true*/
 "use strict";
 
 function csrfSafeMethod(method) {
@@ -97,7 +97,7 @@ $(delete_form).submit(function(event) {
         populate_event_table(selected_venue.venue_id);
     });
 
-    delete_event_delete.error(function( data ) {
+    delete_match_delete.error(function( data ) {
         process_and_show_result('Error deleting match id: "' + match_id + '"": '+ data.responseText, false);
         populate_event_table(selected_venue.venue_id);
     });

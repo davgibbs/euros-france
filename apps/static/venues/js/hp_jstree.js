@@ -22,6 +22,7 @@ var selected_venue = {
 
 
 $( document ).ready(function() {
+    var venue_id = url('?venue_id');
     var graph_get = $.ajax({
          url: "../api/venues/",
          type: "GET",
@@ -49,17 +50,15 @@ $( document ).ready(function() {
         $('#hp_jstree').append($jstree_header);
         $('#hp_jstree').append($jstree_div);
 
+        $('#jstree_div').on("loaded.jstree", function (e, data) {
+            if (venue_id !== undefined){
+                selected_venue.venue_id = venue_id;
+                // If there is a venue given, make the node as selected, which also populates the table
+                $("#jstree_div").jstree("select_node", venue_id);
+             }
+        });
+
         listen_for_jstree_clicks();
     });
-
-    // If there is a venue given, populate the table
-    var venue_id = url('?venue_id')
-    if (venue_id !== undefined){
-        selected_venue.venue_id = venue_id;
-        populate_event_table(selected_venue.venue_id);
-        // Make the tree node as selected
-        //$('#jstree_div ul li["id=' + venue_id + '"] div').addClass('jstree-wholerow-clicked');
-        //console.log($('#jstree_div ul'));//.find('#' + venue_id));
-    }
 });
 
