@@ -65,6 +65,9 @@ function populate_event_table(venue_id){
 
 function listen_for_jstree_clicks() {
     $('#jstree_div').on("changed.jstree", function (e, data) {
-        populate_event_table(data.selected[0]);
+        // Do not try populate table if no data is selected
+        if (data.selected[0] !== undefined) {
+            populate_event_table(data.selected[0]);
+        }
     });
 }
