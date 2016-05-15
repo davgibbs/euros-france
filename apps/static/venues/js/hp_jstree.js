@@ -62,3 +62,14 @@ $( document ).ready(function() {
     });
 });
 
+
+// Listen for non-application triggered state changes. i.e. clicking Forward and Back buttons
+window.onpopstate = function(event) {
+    var venue_id = url('?venue_id');
+    if (venue_id != selected_venue.venue_id){
+        // Select the correct venue id and set tree correctly (will trigger correct table)
+        selected_venue.venue_id = venue_id;
+        $('#jstree_div').jstree("deselect_all");
+        $("#jstree_div").jstree("select_node", venue_id);
+    }
+};
